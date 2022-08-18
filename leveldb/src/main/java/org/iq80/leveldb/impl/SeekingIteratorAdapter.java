@@ -99,6 +99,24 @@ public class SeekingIteratorAdapter
     }
 
     @Override
+    public boolean Valid()
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public byte[] key()
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public byte[] value()
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public boolean hasPrev()
     {
         throw new UnsupportedOperationException();

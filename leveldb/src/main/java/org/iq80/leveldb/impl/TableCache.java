@@ -119,8 +119,7 @@ public class TableCache
         private TableAndFile(File databaseDir, long fileNumber, UserComparator userComparator, boolean verifyChecksums)
                 throws IOException
         {
-            String tableFileName = Filename.tableFileName(fileNumber);
-            File tableFile = new File(databaseDir, tableFileName);
+            File tableFile = tableFileName(databaseDir, fileNumber);
             FileInputStream fis = null;
             try {
                 fis = new FileInputStream(tableFile);
@@ -138,6 +137,21 @@ public class TableCache
               Closeables.closeQuietly(fis);
               throw ioe;
             }
+        }
+
+        private File tableFileName(File databaseDir, long fileNumber)
+        {
+            final String tableFileName = Filename.tableFileName(fileNumber);
+            File tableFile = new File(databaseDir, tableFileName);
+            if (!tableFile.exists()) {
+                // attempt to open older .sst extension
+                final String sstFileName = Filename.sstTableFileName(fileNumber);
+                final File sstPath = new File(databaseDir, sstFileName);
+                if (sstPath.exists()) {
+                    tableFile = sstPath;
+                }
+            }
+            return tableFile;
         }
 
         public Table getTable()

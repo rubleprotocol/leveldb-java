@@ -33,6 +33,16 @@ public class Options
     private DBComparator comparator;
     private Logger logger;
     private long cacheSize;
+    private int bitsPerKey;
+
+    private int maxBatchSize = 52_000;
+
+    //M
+    private int maxManifestSize = 128;
+
+    private boolean reuseLogs = false;
+
+    private long maxFileSize = 2 * 1024 * 1024;
 
     static void checkArgNotNull(Object value, String name)
     {
@@ -171,6 +181,68 @@ public class Options
     public Options paranoidChecks(boolean paranoidChecks)
     {
         this.paranoidChecks = paranoidChecks;
+        return this;
+    }
+
+    public int bitsPerKey()
+    {
+        return bitsPerKey;
+    }
+
+    public Options bitsPerKey(int bitsPerKey)
+    {
+        this.bitsPerKey = bitsPerKey;
+        return this;
+    }
+
+    public int maxBatchSize()
+    {
+        return maxBatchSize;
+    }
+
+    public Options maxBatchSize(int maxBatchSize)
+    {
+        if (maxBatchSize < 0) {
+            maxBatchSize = Integer.MAX_VALUE;
+        }
+        this.maxBatchSize = maxBatchSize;
+        return this;
+    }
+
+    public int maxManifestSize()
+    {
+        return maxManifestSize;
+    }
+
+    public Options maxManifestSize(int maxManifestSize)
+    {
+        if (maxManifestSize < 0) {
+            maxManifestSize = -1;
+            maxBatchSize(-1);
+        }
+        this.maxManifestSize = maxManifestSize;
+        return this;
+    }
+
+    public boolean reuseLogs()
+    {
+        return reuseLogs;
+    }
+
+    public Options reuseLogs(boolean reuseLogs)
+    {
+        this.reuseLogs = reuseLogs;
+        return this;
+    }
+
+    public long maxFileSize()
+    {
+        return maxFileSize;
+    }
+
+    public Options maxFileSize(long maxFileSize)
+    {
+        this.maxFileSize = maxFileSize;
         return this;
     }
 }
