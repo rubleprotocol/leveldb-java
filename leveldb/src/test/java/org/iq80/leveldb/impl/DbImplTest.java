@@ -883,7 +883,6 @@ public class DbImplTest
         dbOptions.writeBufferSize(10 * 1024 * 1024);
         dbOptions.cacheSize(10 * 1024 * 1024L);
         dbOptions.maxOpenFiles(100_000);
-        dbOptions.fast(true);
         dbOptions.maxManifestSize(256);
         try {
             long s = System.currentTimeMillis();

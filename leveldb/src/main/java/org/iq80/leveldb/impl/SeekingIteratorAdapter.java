@@ -99,17 +99,20 @@ public class SeekingIteratorAdapter
     }
 
     @Override
-    public boolean Valid() {
+    public boolean Valid()
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public byte[] key() {
+    public byte[] key()
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public byte[] value() {
+    public byte[] value()
+    {
         throw new UnsupportedOperationException();
     }
 

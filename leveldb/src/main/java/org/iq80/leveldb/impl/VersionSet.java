@@ -736,7 +736,6 @@ public class VersionSet
                 levels.get(level).deletedFiles.add(fileNumber);
                 batchSize++;
 
-
                 // missing update to addedFiles for open db to release resource
                 if (levels.get(level).addedFilesMap.remove(fileNumber) != null) {
                     batchSize--;
