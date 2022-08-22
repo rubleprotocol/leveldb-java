@@ -34,6 +34,12 @@ public interface DBIterator
     void seek(byte[] key);
 
     /**
+     * seek to the last key that is less than or equal to the target key.
+     * @url https://github.com/facebook/rocksdb/wiki/SeekForPrev
+     */
+    void seekForPrev(byte[] key);
+
+    /**
      * Repositions the iterator so is is at the beginning of the Database.
      */
     void seekToFirst();

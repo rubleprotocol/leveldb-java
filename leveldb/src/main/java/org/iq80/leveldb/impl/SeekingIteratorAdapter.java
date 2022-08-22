@@ -50,6 +50,12 @@ public class SeekingIteratorAdapter
     }
 
     @Override
+    public void seekForPrev(byte[] targetKey)
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public boolean hasNext()
     {
         return seekingIterator.hasNext();
