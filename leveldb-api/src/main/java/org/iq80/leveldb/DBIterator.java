@@ -46,7 +46,9 @@ public interface DBIterator
 
     /**
      * Returns the next element in the iteration, without advancing the iteration.
+     * @see key() and value().
      */
+    @Deprecated
     Map.Entry<byte[], byte[]> peekNext();
 
     /**
@@ -61,7 +63,9 @@ public interface DBIterator
 
     /**
      * @return the previous element in the iteration, without rewinding the iteration.
+     * @see key() and value().
      */
+    @Deprecated
     Map.Entry<byte[], byte[]> peekPrev();
 
     /**
