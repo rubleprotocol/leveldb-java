@@ -25,12 +25,32 @@ import java.io.IOException;
  */
 public interface DBFactory
 {
+    /**
+     * Open the database with the specified "name".
+     * Caller should call {@link DB#close()} when it is no longer needed.
+     * @return a heap-allocated database in DB
+     * @throws IOException returns a non-OK status on error.
+     */
     DB open(File path, Options options)
             throws IOException;
 
+    /**
+     * Destroy the contents of the specified database.
+     * Be very careful using this method.
+     * Note: For backwards compatibility, if DestroyDB is unable to list the
+     * database files, Status::OK() will still be returned masking this failure.
+     * @throws IOException may be not
+     */
     void destroy(File path, Options options)
             throws IOException;
 
+    /**
+     * If a DB cannot be opened, you may attempt to call this method to
+     * resurrect as much of the contents of the database as possible.
+     * Some data may be lost, so be careful when calling this function
+     * on a database that contains important information.
+     * @throws IOException may be
+     */
     void repair(File path, Options options)
             throws IOException;
 }

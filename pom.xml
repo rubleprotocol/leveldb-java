@@ -8,7 +8,7 @@
         <version>95</version>
     </parent>
 
-    <groupId>io.github.halibobor</groupId>
+    <groupId>com.halibobor</groupId>
     <artifactId>leveldb-project</artifactId>
     <version>1.23.1</version>
     <packaging>pom</packaging>
@@ -81,13 +81,13 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.github.halibobor</groupId>
+                <groupId>com.halibobor</groupId>
                 <artifactId>leveldb-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>io.github.halibobor</groupId>
+                <groupId>com.halibobor</groupId>
                 <artifactId>leveldb</artifactId>
                 <version>${project.version}</version>
             </dependency>

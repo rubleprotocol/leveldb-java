@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.github.halibobor</groupId>
+        <groupId>com.halibobor</groupId>
         <artifactId>leveldb-project</artifactId>
         <version>1.23.1</version>
     </parent>

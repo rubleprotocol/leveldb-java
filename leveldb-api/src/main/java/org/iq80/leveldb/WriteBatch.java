@@ -25,7 +25,13 @@ import java.io.Closeable;
 public interface WriteBatch
         extends Closeable
 {
+    /**
+     * Store the mapping "key->value" in the database.
+     */
     WriteBatch put(byte[] key, byte[] value);
 
+    /**
+     * If the database contains a mapping for "key", erase it.  Else do nothing.
+     */
     WriteBatch delete(byte[] key);
 }

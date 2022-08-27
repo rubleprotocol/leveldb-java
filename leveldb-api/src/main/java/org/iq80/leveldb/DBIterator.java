@@ -28,74 +28,85 @@ public interface DBIterator
         extends Iterator<Map.Entry<byte[], byte[]>>, Closeable
 {
     /**
-     * Repositions the iterator so the key of the next BlockElement
-     * returned greater than or equal to the specified targetKey.
+     * Position at the first key in the source that is at or past target.
+     * The iterator is Valid() after this call iff the source contains
+     * an entry that comes at or past target.
+     * If key larger than max key, Valid() return false.
+     * @param key target
      */
     void seek(byte[] key);
 
     /**
-     * seek to the last key that is less than or equal to the target key.
+     * Seek to the last key that is less than or equal to the target key.
      * { @link <a href="https://github.com/facebook/rocksdb/wiki/SeekForPrev"></a> }
+     * @param key target
      */
     void seekForPrev(byte[] key);
 
     /**
-     * Repositions the iterator so is is at the beginning of the Database.
+     * Position at the first key in the source.  The iterator is {@link #Valid()}
+     * after this call iff the source is not empty.
      */
     void seekToFirst();
 
     /**
+     * Keep same as {@link #peekPrev()}.
      * @see #key()
      * @see #value()
-     * Returns the next element in the iteration, without advancing the iteration.
+     * @return the current entry
      */
     @Deprecated
     Map.Entry<byte[], byte[]> peekNext();
 
     /**
-     * @return true if there is a previous entry in the iteration.
+     * Keep same as {@link #hasNext()}.
+     * Used in combination with {@link #seekToLast()},{@link #seekForPrev(byte[])},{@link #prev()}.
+     * @return An iterator is either positioned at a key/value pair
      */
     boolean hasPrev();
 
     /**
-     * @return the previous element in the iteration and rewinds the iteration.
+     * Moves to the previous entry in the source.  After this call, {@link #Valid()} is
+     * true iff the iterator was not positioned at the first entry in source.
+     * REQUIRES: {@link #Valid()}
+     * @return the current entry
      */
     Map.Entry<byte[], byte[]> prev();
 
     /**
+     * Keep same as {@link #peekNext()}.
      * @see #key()
      * @see #value()
-     * @return the previous element in the iteration, without rewinding the iteration.
+     * @return the current entry
      */
     @Deprecated
     Map.Entry<byte[], byte[]> peekPrev();
 
     /**
-     * Repositions the iterator so it is at the end of of the Database.
+     *  Position at the last key in the source.  The iterator is {@link #Valid()}
+     *  after this call iff the source is not empty.
      */
     void seekToLast();
 
     /**
      * An iterator is either positioned at a key/value pair, or
-     *  not valid.  This method returns true iff the iterator is valid.
-     * @return
+     * not valid.  This method returns true iff the iterator is valid.
      */
     boolean  Valid();
 
     /**
-     * Return the key for the current entry.  The underlying storage for
-     * the returned slice is valid only until the next modification of
+     * The returned slice is valid only until the next modification of
      * the iterator.
-     * REQUIRES: Valid()
+     * REQUIRES: {@link #Valid()}
+     * @return the key for the current entry
      */
-   byte[] key();
+    byte[] key();
 
     /**
-     * Return the value for the current entry.  The underlying storage for
-     * the returned slice is valid only until the next modification of
+     * The returned slice is valid only until the next modification of
      * the iterator.
-     * REQUIRES: Valid()
+     * REQUIRES: {@link #Valid()}
+     * @return the value for the current entry
      */
-
     byte[] value();
 }
