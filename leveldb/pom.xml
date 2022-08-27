@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.iq80.leveldb</groupId>
+        <groupId>io.github.halibobor</groupId>
         <artifactId>leveldb-project</artifactId>
-        <version>0.13-SNAPSHOT</version>
+        <version>1.23.1</version>
     </parent>
 
     <artifactId>leveldb</artifactId>
@@ -20,7 +20,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.iq80.leveldb</groupId>
+            <groupId>io.github.halibobor</groupId>
             <artifactId>leveldb-api</artifactId>
         </dependency>
 
@@ -60,7 +60,13 @@
         <dependency>
             <groupId>org.fusesource.leveldbjni</groupId>
             <artifactId>leveldbjni</artifactId>
-            <version>1.1</version>
+            <version>1.8</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.iq80.leveldb</groupId>
+                    <artifactId>leveldb-api</artifactId>
+                </exclusion>
+            </exclusions>
             <scope>test</scope>
         </dependency>
 

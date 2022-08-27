@@ -19,9 +19,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
+        <groupId>io.github.halibobor</groupId>
         <artifactId>leveldb-project</artifactId>
-        <groupId>org.iq80.leveldb</groupId>
-        <version>0.13-SNAPSHOT</version>
+        <version>1.23.1</version>
     </parent>
 
     <artifactId>leveldb-benchmark</artifactId>
@@ -34,11 +34,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.iq80.leveldb</groupId>
+            <groupId>io.github.halibobor</groupId>
             <artifactId>leveldb-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.iq80.leveldb</groupId>
+            <groupId>io.github.halibobor</groupId>
             <artifactId>leveldb</artifactId>
         </dependency>
         <dependency>

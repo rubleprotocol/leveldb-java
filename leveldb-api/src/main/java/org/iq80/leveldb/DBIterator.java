@@ -35,7 +35,7 @@ public interface DBIterator
 
     /**
      * seek to the last key that is less than or equal to the target key.
-     * @url https://github.com/facebook/rocksdb/wiki/SeekForPrev
+     * { @link <a href="https://github.com/facebook/rocksdb/wiki/SeekForPrev"></a> }
      */
     void seekForPrev(byte[] key);
 
@@ -45,8 +45,9 @@ public interface DBIterator
     void seekToFirst();
 
     /**
+     * @see #key()
+     * @see #value()
      * Returns the next element in the iteration, without advancing the iteration.
-     * @see key() and value().
      */
     @Deprecated
     Map.Entry<byte[], byte[]> peekNext();
@@ -62,8 +63,9 @@ public interface DBIterator
     Map.Entry<byte[], byte[]> prev();
 
     /**
+     * @see #key()
+     * @see #value()
      * @return the previous element in the iteration, without rewinding the iteration.
-     * @see key() and value().
      */
     @Deprecated
     Map.Entry<byte[], byte[]> peekPrev();
