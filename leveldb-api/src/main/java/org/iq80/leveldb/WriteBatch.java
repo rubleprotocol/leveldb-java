@@ -59,6 +59,7 @@ public interface WriteBatch
      * The size of the database changes caused by this batch.
      * Note: This number is tied to implementation details, and may change across
      * releases. It is intended for LevelDB usage metrics.
+     * WriteBatch header has an 8-byte sequence number followed by a 4-byte count.
      * @return size
      */
     long approximateSize();

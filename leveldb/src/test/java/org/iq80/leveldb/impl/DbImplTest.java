@@ -126,8 +126,20 @@ public class DbImplTest
 
         // write an empty batch
         WriteBatch batch = db.createWriteBatch();
-        batch.close();
+        batch.put("foobar".getBytes(UTF_8), "tgz".getBytes(UTF_8));
+        batch.put("bob".getBytes(UTF_8), "tar".getBytes(UTF_8));
+        WriteBatch source = db.createWriteBatch();
+        source.put("foobar".getBytes(UTF_8), "tgz".getBytes(UTF_8));
+        source.put("bob".getBytes(UTF_8), "tar".getBytes(UTF_8));
+        batch.clear();
+        assertEquals(12, batch.approximateSize());
+        batch.append(source);
+        batch.append(source);
+        assertEquals(source.approximateSize() * 2  -12, batch.approximateSize());
+        batch.clear();
+        assertEquals(12, batch.approximateSize());
         db.write(batch);
+        batch.close();
 
         // close the db
         db.close();
