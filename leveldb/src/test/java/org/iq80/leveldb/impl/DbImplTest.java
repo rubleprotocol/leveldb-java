@@ -135,7 +135,7 @@ public class DbImplTest
         assertEquals(12, batch.approximateSize());
         batch.append(source);
         batch.append(source);
-        assertEquals(source.approximateSize() * 2  -12, batch.approximateSize());
+        assertEquals(source.approximateSize() * 2  - 12, batch.approximateSize());
         batch.clear();
         assertEquals(12, batch.approximateSize());
         db.write(batch);
