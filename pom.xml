@@ -8,13 +8,13 @@
         <version>95</version>
     </parent>
 
-    <groupId>org.iq80.leveldb</groupId>
+    <groupId>com.halibobor</groupId>
     <artifactId>leveldb-project</artifactId>
-    <version>0.13-SNAPSHOT</version>
+    <version>1.18.2</version>
     <packaging>pom</packaging>
 
     <description>Port of LevelDB to Java</description>
-    <url>http://github.com/dain/leveldb</url>
+    <url>http://github.com/halibobor/leveldb-java</url>
 
     <modules>
         <module>leveldb-api</module>
@@ -45,12 +45,21 @@
             <url>http://hiramchirino.com</url>
             <timezone>-5</timezone>
         </developer>
+        <developer>
+            <id>halibobo</id>
+            <name>halibobo1205</name>
+            <email>halibobo1205@gmail.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/dain/leveldb.git</connection>
-        <developerConnection>scm:git:git@github.com:dain/leveldb.git</developerConnection>
-        <url>http://github.com/dain/leveldb/tree/master</url>
+        <connection>scm:https://github.com/halibobor/leveldb-java.git</connection>
+        <developerConnection>scm:https://github.com/halibobor/leveldb-java.git</developerConnection>
+        <url>https://github.com/halibobor/leveldb-java/tree/master</url>
       <tag>HEAD</tag>
   </scm>
 
@@ -65,18 +74,20 @@
         <air.javadoc.lint>-missing</air.javadoc.lint>
         <air.license.header-file>src/license/LICENSE-HEADER.txt</air.license.header-file>
         <air.checkstyle.config-file>${air.main.basedir}/src/checkstyle/checks.xml</air.checkstyle.config-file>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <gpg.keyname>0xEF7F2D6C</gpg.keyname>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.iq80.leveldb</groupId>
+                <groupId>com.halibobor</groupId>
                 <artifactId>leveldb-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.iq80.leveldb</groupId>
+                <groupId>com.halibobor</groupId>
                 <artifactId>leveldb</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -108,4 +119,121 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!--
+          Run the release /w the -P release flag to enable the release profile.
+        -->
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- We want to sign the artifact, the POM, and all attached artifacts -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <keyname>${gpg.keyname}</keyname>
+                                    <passphraseServerId>${gpg.keyname}</passphraseServerId>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <source>1.8</source>
+                            <target>1.8</target>
+                            <fork>true</fork>
+                            <verbose>true</verbose>
+                            <encoding>UTF-8</encoding>
+                            <showWarnings>false</showWarnings>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+
+                </plugins>
+
+            </build>
+        </profile>
+
+        <profile>
+            <id>enforce-no-snapshots</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <version>1.0</version>
+                        <executions>
+                            <execution>
+                                <id>enforce-no-snapshots</id>
+                                <goals><goal>enforce</goal></goals>
+                                <configuration>
+                                    <rules>
+                                        <requireReleaseVersion>
+                                            <message>No Snapshots Allowed!</message>
+                                        </requireReleaseVersion>
+                                        <requireReleaseDeps>
+                                            <message>No Snapshots Allowed!</message>
+                                        </requireReleaseDeps>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.iq80.leveldb</groupId>
+        <groupId>com.halibobor</groupId>
         <artifactId>leveldb-project</artifactId>
-        <version>0.13-SNAPSHOT</version>
+        <version>1.18.2</version>
     </parent>
 
     <artifactId>leveldb-api</artifactId>

@@ -33,6 +33,8 @@ public class Options
     private DBComparator comparator;
     private Logger logger;
     private long cacheSize;
+    private int maxBatchSize = 80_000;
+    private int maxManifestSize = 0; //M
 
     static void checkArgNotNull(Object value, String name)
     {
@@ -171,6 +173,35 @@ public class Options
     public Options paranoidChecks(boolean paranoidChecks)
     {
         this.paranoidChecks = paranoidChecks;
+        return this;
+    }
+
+    public int maxBatchSize()
+    {
+        return maxBatchSize;
+    }
+
+    public Options maxBatchSize(int maxBatchSize)
+    {
+        if (maxBatchSize < 0) {
+            maxBatchSize = Integer.MAX_VALUE;
+        }
+        this.maxBatchSize = maxBatchSize;
+        return this;
+    }
+
+    public int maxManifestSize()
+    {
+        return maxManifestSize;
+    }
+
+    public Options maxManifestSize(int maxManifestSize)
+    {
+        if (maxManifestSize < 0) {
+            maxManifestSize = -1;
+            maxBatchSize(-1);
+        }
+        this.maxManifestSize = maxManifestSize;
         return this;
     }
 }
