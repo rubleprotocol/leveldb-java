@@ -10,7 +10,7 @@
 
     <groupId>io.github.tronprotocol</groupId>
     <artifactId>leveldb-project</artifactId>
-    <version>1.18.2</version>
+    <version>1.18.3</version>
     <packaging>pom</packaging>
 
     <description>Port of LevelDB to Java</description>
